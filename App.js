@@ -8,7 +8,7 @@ import {
 import { Cabin_400Regular, Cabin_700Bold } from '@expo-google-fonts/cabin'
 import { ThemeProvider } from 'styled-components'
 import themes from './src/themes'
-import Home from './src/views/Home'
+import Navigation from './src/stack/Navigation'
 
 export default function App() {
   //obtendo o tema padrão do dispositivo móvel
@@ -22,7 +22,7 @@ export default function App() {
   else {
     return (
       <ThemeProvider theme={theme}>
-        <Home />
+        <Navigation />
       </ThemeProvider>
     )
   }
