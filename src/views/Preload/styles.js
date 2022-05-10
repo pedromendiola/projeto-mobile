@@ -10,5 +10,5 @@ justify-content: center;
 export const Title = styled.Text`
 color: ${props => props.theme.color};
 font-size: 44px; 
-font-family: ${themes.padrao.fonts.montserrat.regular};
+
 `

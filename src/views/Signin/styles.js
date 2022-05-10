@@ -1,16 +1,32 @@
 import styled from 'styled-components/native'
 import themes from '../../themes'
 
-export const Container = styled.View`
-flex: 1;
-align-items: center;
-justify-content: center;
+
+export const CirculoLaranja = styled.View`
+    height:250px; 
+    width:250px;
+    border-radius:250px;
+    background-color:${themes.padrao.colors.brand.laranja};
+    position:absolute;
+    top: -125px;
+    right: -16px;
+`
+export const CirculoAmarelo = styled.View`
+    height:200px; 
+    width:200px;
+    border-radius:200px;
+    background-color:${themes.padrao.colors.brand.amarelo};
+    position:absolute;
+    top: -100px;
+    left: -5px;
 `
 
-export const Title = styled.Text`
-color: ${props => props.theme.color};
-font-size: 22px;
-margin-top: 16px;
-margin-bottom: 16px;
-font-family: ${themes.padrao.fonts.montserrat.regular};
+export const CirculoAzul = styled.View`
+    height:200px; 
+    width:200px;
+    border-radius:200px;
+    background-color:${themes.padrao.colors.brand.azul};
+    position:absolute;
+    top: -50px;
+    left: -100px;
 `

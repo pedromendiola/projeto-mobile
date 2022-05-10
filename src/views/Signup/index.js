@@ -1,12 +1,10 @@
 import React, { useState } from 'react'
 import { Alert, Platform } from 'react-native'
 import { useNavigation, CommonActions } from '@react-navigation/native'
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import DogLogin from '../../components/svg/Dog'
 
 import IconInput from '../../components/styled/IconInput'
-import { Titulo, StyledLinkLegenda } from '../../components/styled/Text'
-import { Container, InputArea, StyledButton, StyledMessageButton, ImagemSVG } from '../../components/styled/Others'
+import { Titulo, SubTitulo } from '../../components/styled/Text'
+import { Container, InputArea, StyledButton, StyledMessageButton } from '../../components/styled/Others'
 import Api from '../../resources/api/Api'
 
 export default () => {
@@ -14,50 +12,52 @@ export default () => {
 
     const [emailField, setEmailField] = useState('')
     const [senhaField, setSenhaField] = useState('')
+    const [nomeField, setNomeField] = useState('')
 
     const handleMessageButtonClick = () => {
-        //iremos enviá-lo para o SignUp, sem a possibilidade de voltar. (se voltar, fecha o App )
+        //iremos enviá-lo para o SignIn, sem a possibilidade de voltar. (se voltar, fecha o App )
         navigation.dispatch(
             CommonActions.reset({
                 index: 0,
                 routes: [
-                    { name: 'Signup' },
+                    { name: 'Signin' },
                 ],
             })
         )
     }
 
     const handleSignClick = async () => {
-        if (senhaField && emailField) {
-            let res = await Api.signIn(emailField, senhaField)
-            if (res.access_token) {
-                await AsyncStorage.setItem('token', res.access_token)
-                navigation.dispatch(
-                    CommonActions.reset({
-                        index: 0,
-                        routes: [
-                            { name: 'Home' },
-                        ],
-                    })
-                )
+        if (nomeField && senhaField && emailField) {
+            let res = await Api.signUp(nomeField, emailField, senhaField)
+            if (res.acknowledged) { //Retorno do backend se inseriu
+                Platform.OS === 'web' ? alert(`Usuário criado! Efetue o login`) : Alert.alert("✅Aviso",`Usuário cadastrado com sucesso! \nPor favor, efetue o Login`)
+                
+                navigation.navigate('SignIn') //Direcionamos para o login
+
             } else {
                 Platform.OS === 'web' ? alert(`‼️Erro: ${res.errors[0].msg}`) : Alert.alert("‼️Erro", res.errors[0].msg)
             }
         } else {
-            Platform.OS === 'web' ? alert(`‼️Atenção: Preencha todos os campos`) : Alert.alert("‼️Atenção", 'Preencha todos os campos')
+            Platform.OS === 'web' ? alert(`Preencha todos os campos`) : Alert.alert("‼️Erro", 'Preencha todos os campos')
         }
 
     }
 
     return (
         <Container>
-            <ImagemSVG escala="0.40">
-                <DogLogin />
-            </ImagemSVG>
+            <Titulo>
+                Bem vindo à bordo!
+            </Titulo>
+            <SubTitulo>
+                Você está muito próximo de encontrar um profissional passeador para o seu melhor amigo.
+            </SubTitulo>
             <InputArea>
-                <Titulo>
-                    Bem vindo de volta!
-                </Titulo>
+                <IconInput
+                    icon="human"
+                    placeholder="Digite o seu nome completo"
+                    value={nomeField}
+                    onChangeText={t => setNomeField(t)}
+                />
                 <IconInput
                     icon="email"
                     placeholder="Digite o seu e-mail"
@@ -71,15 +71,14 @@ export default () => {
                     onChangeText={t => setSenhaField(t)}
                     password={true}
                 />
-                <StyledLinkLegenda text="Esqueceu a senha?" />
 
                 <StyledButton
                     onPress={handleSignClick}
                     icon="login"
-                    text="Login" />
+                    text="Registrar-se" />
 
             </InputArea>
-            <StyledMessageButton onPress={handleMessageButtonClick} text="Ainda não tem uma conta?" textBold="Registre-se" />
+            <StyledMessageButton onPress={handleMessageButtonClick} text="Já é um usuário?" textBold="Faça o login" />
 
         </Container>
     )

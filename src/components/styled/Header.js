@@ -10,7 +10,6 @@ const Container = styled.SafeAreaView`
     align-items: center;       justify-content: space-between;
 `
 const Title = styled.Text`
-font-family: ${themes.padrao.fonts.montserrat.bold};
 font-size: 22px;
 color: ${props=> props.theme.color};
 margin-left: 8px;

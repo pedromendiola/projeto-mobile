@@ -17,7 +17,7 @@ export default function Preload(){
               let res = await Api.checkToken(token)
               if (res.access_token) { //Se retornou o token, está ok
                 await AsyncStorage.setItem('token', res.access_token)
-                navigation.navigate('Home')
+                navigation.navigate('Tabs')
               } else {
                   navigation.navigate('Signin') //Token é inválido
               }
