@@ -36,7 +36,7 @@ export default () => {
                     CommonActions.reset({
                         index: 0,
                         routes: [
-                            { name: 'Home' },
+                            { name: 'Tabs' },
                         ],
                     })
                 )
