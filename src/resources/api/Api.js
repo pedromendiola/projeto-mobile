@@ -39,7 +39,47 @@ export default {
           body: JSON.stringify({nome, email, senha})
       })
       const json = await req.json()
-      return json
-      
-  }
+      return json      
+  },
+  getPrestadores:async() => {
+    let token = await AsyncStorage.getItem('token')
+    const req = await fetch(`${BASE_API}/prestadores`,{
+        method: 'GET',
+        headers: {
+            Accept : 'application/json',
+            'Content-Type': 'application/json',
+            'x-access-token': token
+        }        
+    })
+    const json = await req.json()
+    return json    
+},
+incluiPrestador:async(dadosPrestador) => {
+  let token = await AsyncStorage.getItem('token')
+  const req = await fetch(`${BASE_API}/prestadores`,{
+      method: 'POST',
+      headers: {
+          Accept : 'application/json',
+          'Content-Type': 'application/json',
+          'x-access-token': token
+      },
+      body: JSON.stringify(dadosPrestador)        
+  })
+  const json = await req.json()
+  return json    
+},
+alteraPrestador:async(dadosPrestador) => {
+  let token = await AsyncStorage.getItem('token')
+  const req = await fetch(`${BASE_API}/prestadores`,{
+      method: 'PUT',
+      headers: {
+          Accept : 'application/json',
+          'Content-Type': 'application/json',
+          'x-access-token': token
+      },
+      body: JSON.stringify(dadosPrestador)        
+  })
+  const json = await req.json()
+  return json    
+}
 }

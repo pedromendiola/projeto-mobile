@@ -8,6 +8,7 @@ import Preload from '../views/Preload'
 import Signin from '../views/Signin'
 import Signup from '../views/Signup'
 import Tabs from './Tabs'
+import Prestador from '../views/Prestador'
 
 export default function Navigation(){
     return(
@@ -19,6 +20,7 @@ export default function Navigation(){
             <Stack.Screen name="Signin" component={Signin}/>  
             <Stack.Screen name="Signup" component={Signup}/>  
             <Stack.Screen name="Tabs" component={Tabs}/>  
+            <Stack.Screen name="Prestador" component={Prestador}/>  
             </Stack.Navigator>
         </NavigationContainer>
     )
