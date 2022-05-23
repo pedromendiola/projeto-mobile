@@ -224,6 +224,12 @@ export default ({ route }) => {
                     color={themes.padrao.colors.brand.azul}
                     accessibilityLabel='Salvar os dados'
                 />
+                 <Button
+                    onPress={() => navigation.navigate('Prestadores')}
+                    title='Cancelar'
+                    color={themes.padrao.colors.brand.laranja}
+                    accessibilityLabel='Cancelar'
+                />
             </View>
         </>
     )

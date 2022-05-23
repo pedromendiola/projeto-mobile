@@ -7,6 +7,7 @@ import themes from '../../themes'
 import ListaPrestador from '../../components/styled/ListaPrestador'
 import Fab from '../../components/styled/Fab'
 import { useNavigation } from '@react-navigation/native'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 export default function Prestadores(){
     const [loading, setLoading] = useState(false)
@@ -38,7 +39,9 @@ export default function Prestadores(){
             {listaPrestadores.length === 0 && !loading &&
             <Text>Ops! Não existe nenhum prestador cadastrado.</Text>
             }
-
+            <Text>Relação de Prestadores &nbsp;
+             <MaterialCommunityIcons name="cloud-refresh" size={16} color={themes.padrao.colors.brand.laranja} onPress={() => getPrestadores()} />
+             </Text>
             {listaPrestadores.map((prestador, k) => (
                 <ListaPrestador key={k} data={prestador} />
             ))}
@@ -50,3 +53,4 @@ export default function Prestadores(){
        </>
     )
 }
+
