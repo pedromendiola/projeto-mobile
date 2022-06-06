@@ -14,7 +14,7 @@ export default ({ route }) => {
     //Veio algum dado através da rota de navegação?
     const registroInicial = route.params ? route.params.prestador :
         {
-            nome: '', email: '', celular: '', servico: ''
+            nome: '', email: '', servico: '', celular: '', obs: ''
         }
 
     const [prestador, setPrestador] = useState(registroInicial)
@@ -66,9 +66,9 @@ export default ({ route }) => {
 
     return (
         <>
-            <Header headerTitle="Prestador" />
+            <Header headerTitle="Cadastro de Prestador" />
             <View>
-                <Text>Cadastro de Prestadores</Text>
+                
                 <Text style={styles.label}>Nome:</Text>
                 <TextInput
                     name='nome'
@@ -87,7 +87,7 @@ export default ({ route }) => {
                     onChangeText={(text) => setPrestador({ ...prestador, email: text })}
                     value={prestador.email}
                     keyboardType='default'
-                    placeholder='email'
+                    placeholder='email@gmail.com'
                     maxLength={50}
                 />
 
@@ -114,6 +114,18 @@ export default ({ route }) => {
                     maxLength={20}
                 />
 
+                <Text style={styles.label}>Obs.:</Text>
+                <TextInput
+                    name="obs"
+                    style={styles.input}
+                    onChangeText={(text) => setPrestador({ ...prestador, obs: text })}
+                    value={prestador.obs}
+                    keyboardType="default"
+                    placeholder='Descrição do serviço'
+                    autoComplete='obs'
+                    maxLength={50}
+                />
+
                 <Button
                     onPress={() => salvarPrestador(prestador)}
                     title='Salvar o Registro'
@@ -123,13 +135,13 @@ export default ({ route }) => {
                 <Button
                     onPress={() => navigation.navigate('Prestadores')}
                     title='Cancelar'
-                    color={themes.padrao.colors.brand.laranja}
+                    color={themes.padrao.colors.brand.neutra}
                     accessibilityLabel='Cancelar'
                 />
                 <Button
                     onPress={() => confirmaExclusaoRegistro(prestador)}
                     title='Apagar'
-                    color={themes.padrao.colors.brand.laranja}
+                    color={themes.padrao.colors.brand.red}
                     accessibilityLabel='Apagar'
                 />
 

@@ -41,8 +41,8 @@ export default function Prestadores() {
                     {listaPrestadores.length === 0 && !loading &&
                         <Text>Ops! Não existe nenhum prestador cadastrado.</Text>
                     }
-                    <Text>Relação de Prestadores &nbsp;
-                        <MaterialCommunityIcons name="cloud-refresh" size={20} color={themes.padrao.colors.brand.laranja} onPress={() => getPrestadores()} />
+                    <Text size={25}>Relação de Prestadores &nbsp;
+                        <MaterialCommunityIcons name="cloud-refresh" size={25} color={themes.padrao.colors.brand.laranja} onPress={() => getPrestadores()} />
                     </Text>
                     {listaPrestadores.map((prestador, k) => (
                         <ListaPrestador key={k} data={prestador} />

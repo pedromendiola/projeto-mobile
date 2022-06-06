@@ -2,7 +2,7 @@ import React, {useEffect} from 'react'
 import { useNavigation, CommonActions } from '@react-navigation/native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 // expo install @react-native-async-storage/async-storage
-import Dog from '../../components/svg/Dog'
+import Smart from '../../components/svg/Smart'
 import themes from '../../themes'
 import Api from '../../resources/api/Api'
 import { Container, Title } from './styles'

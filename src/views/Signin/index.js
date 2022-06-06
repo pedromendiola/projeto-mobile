@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Alert, Platform } from 'react-native'
 import { useNavigation, CommonActions } from '@react-navigation/native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import DogLogin from '../../components/svg/Dog'
+import SmartLogin from '../../components/svg/Smart'
 
 import IconInput from '../../components/styled/IconInput'
 import { Titulo, StyledLinkLegenda } from '../../components/styled/Text'
@@ -51,8 +51,8 @@ export default () => {
 
     return (
         <Container>
-            <ImagemSVG escala="0.40">
-                <DogLogin />
+            <ImagemSVG escala="0.45">
+                <SmartLogin />
             </ImagemSVG>
             <InputArea>
                 <Titulo>

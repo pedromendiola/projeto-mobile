@@ -14,10 +14,12 @@ export default ({ data }) => {
             <Avatar source={{ uri: `https://ui-avatars.com/api?background=FFE5AA&color=3B5998&name=${data.nome}` }} />
             <InfoArea>
                 <UserName>{data.nome}</UserName>
-                <Empresa>{data.servico}</Empresa>
-                <Porte>{data.celular}</Porte>
+                <UserName>{data.email}</UserName>
+                <UserName>{data.servico}</UserName>
+                <Empresa>{data.celular}</Empresa>
+                <Porte>{data.obs}</Porte>
                 <BotaoDetalhes>
-                    <BotaoDetalhesText>Acesse os detalhes</BotaoDetalhesText>
+                    <BotaoDetalhesText>Editar</BotaoDetalhesText>
                 </BotaoDetalhes>
             </InfoArea>
         </Area>

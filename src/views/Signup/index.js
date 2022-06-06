@@ -32,7 +32,7 @@ export default () => {
             if (res.acknowledged) { //Retorno do backend se inseriu
                 Platform.OS === 'web' ? alert(`Usuário criado! Efetue o login`) : Alert.alert("✅Aviso", `Usuário cadastrado com sucesso! \nPor favor, efetue o Login`)
 
-                navigation.navigate('SignIn') //Direcionamos para o login
+                navigation.navigate('Signin') //Direcionamos para o login
 
             } else {
                 Platform.OS === 'web' ? alert(`‼️Erro: ${res.errors[0].msg}`) : Alert.alert("‼️Erro", res.errors[0].msg)

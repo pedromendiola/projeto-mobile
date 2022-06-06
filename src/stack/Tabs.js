@@ -22,7 +22,7 @@ return (
                 height: 60
             }
         }} >
-            <Tab.Screen name="Perfil"  component={Perfil}
+            <Tab.Screen name="Sair"  component={Perfil}
             options={{
                 tabBarIcon: ({focused}) => (
                 <MaterialCommunityIcons name={'human-greeting'}
@@ -31,10 +31,10 @@ return (
                 size={35}/>               
                 )
             }} />
-             <Tab.Screen name="Favoritos"  component={Home}
+             <Tab.Screen name="Home"  component={Home}
             options={{
                 tabBarIcon: ({focused}) => (
-                <MaterialCommunityIcons name={'heart'}
+                <MaterialCommunityIcons name={'home'}
                 color={focused ? themes.padrao.colors.brand.amarelo
                                : themes.padrao.colors.neutral.neutral_100}
                 size={35}/>               

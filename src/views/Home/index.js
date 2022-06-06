@@ -1,14 +1,14 @@
 import React from 'react'
 import {Container, Title} from './styles'
-import Dog from '../../components/svg/Dog'
+import Smart from '../../components/svg/Smart'
 import Header from '../../components/styled/Header'
 
 export default function Home(){
     return (
         <>
-        <Header headerTitle="Cadastro Prestadores" />
+        <Header headerTitle="Cadastro Prestadores de Serviço" />
         <Container>
-            <Dog />
+            <Smart />
             <Title>Início</Title>
         </Container>
        </>

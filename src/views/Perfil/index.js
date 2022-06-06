@@ -14,7 +14,7 @@ export default function Perfil(){
     }
     return (
         <>
-        <Header headerTitle="Cadastro Prestadores" />
+        <Header headerTitle="" />
         <Container>
             <Button
                 onPress={sair}

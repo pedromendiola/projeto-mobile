@@ -8,16 +8,17 @@ background-color: ${props => props.theme.background};
 flex: 1;
 justify-content: center;
 align-items: center;
+
 `
 
 export const ImagemSVG = styled.View`
 transform: scale(${props => props.escala});
-flex: 1;
+flex: 15;
 `
 export const InputArea = styled.ScrollView`
-padding: 16px;
+padding: 25px;
 width: 100%;
-margin-bottom: 48px;
+margin-bottom: 50px;
 `
 
 export const LoadingIcon = styled.ActivityIndicator`

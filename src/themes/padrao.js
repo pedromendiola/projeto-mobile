@@ -1,7 +1,7 @@
 export default {
     colors: {
         brand: {
-            laranja: '#FB724C', azul: '#3B5998', amarelo: '#FFCB55'
+            laranja: '#8BCD41', azul: '#FFCB55', amarelo: '#3B5998', red: '#E82733', neutra: '#CCCCCC'
         },
         neutral: {
             neutral_0 : '#25232D', neutral_80: '#1F1E28',
