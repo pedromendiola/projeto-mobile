@@ -6,230 +6,133 @@ import { MaterialCommunityIcons } from '@expo/vector-icons'
 import Header from '../../components/styled/Header'
 import themes from '../../themes'
 import Api from '../../resources/api/Api'
+import { Alert } from 'react-native-web'
+
 
 export default ({ route }) => {
     const navigation = useNavigation()
     //Veio algum dado através da rota de navegação?
     const registroInicial = route.params ? route.params.prestador :
         {
-            cnpj: '', razao_social: '', descricao_tipo_de_logradouro: '', logradouro: '',
-            nome_fantasia: '', cep: '', numero: '', municipio: '', uf: '', bairro: '',
-            ddd_telefone_1: '', ddd_telefone_2: '', porte: '', natureza_juridica: '',
-            cnae_fiscal: '', cnae_fiscal_descricao: '', descricao_situacao_cadastral: '',
-            data_inicio_atividade: '', localizacao: { type: 'Point', coordinates: [0, 0] }
+            nome: '', email: '', celular: '', servico: ''
         }
 
     const [prestador, setPrestador] = useState(registroInicial)
 
     const salvarPrestador = async (dadosPrestador) => {
         let salvar = dadosPrestador.hasOwnProperty('_id') ? await Api.alteraPrestador(dadosPrestador) : await Api.incluiPrestador(dadosPrestador)
-        if(salvar.hasOwnProperty('errors')){
+        if (salvar.hasOwnProperty('errors')) {
             Platform.OS === 'web' ? alert(`‼️Erro: ${salvar.errors[0].msg}`) : Alert.alert("‼️Erro", salvar.errors[0].msg)
-        } else if(salvar.hasOwnProperty('acknowledged')){
+        } else if (salvar.hasOwnProperty('acknowledged')) {
             Platform.OS === 'web' ? alert(`✅Tudo OK: Registro salvo com sucesso `) : Alert.alert("✅Tudo OK", 'Registro salvo com sucesso')
+            navigation.navigate('Prestadores')
+
+        }
+    }
+
+    const apagaPrestador = async (idPrestador) => {
+        //let apagar = idPrestador.hasOwnProperty('_id') ? await Api.removePrestador(idPrestador) : await Api.removePrestador(idPrestador)
+        let apagar = await Api.removePrestador(idPrestador)
+        if (apagar.hasOwnProperty('erros')) {
+            Platform.OS === 'web' ? alert(`‼️Erro: ${apagar.errors[0].msg}`) : Alert.alert("‼️Erro", apagar.errors[0].msg)
+        } else if (apagar.hasOwnProperty('acknowledged')) {
+            Platform.OS === 'web' ? ('Registro removido!') : Alert.alert('ok', 'Registro removido')
             navigation.navigate('Prestadores')
         }
     }
+
+    async function confirmaExclusaoRegistro(idPrestador) {
+        if (Platform.OS !== 'web') {
+            try {
+                Alert.alert('Atenção', 'Deseja mesmo excluir?', [
+                    { text: 'Não', style: 'cancel' },
+                    {
+                        text: 'Sim', onPress: async () => {
+                            apagaPrestador(idPrestador)
+                        }
+                    }
+                ])
+            } catch (response) {
+                Alert.alert(response.data.error)
+            }
+        } else {
+            if (confirm('Atenção!\n Deseja mesmo excluir?')) {
+                apagaPrestador(idPrestador)
+            }
+        }
+    }
+    
+
 
     return (
         <>
             <Header headerTitle="Prestador" />
             <View>
                 <Text>Cadastro de Prestadores</Text>
-                <Text style={styles.label}>CNPJ</Text>
+                <Text style={styles.label}>Nome:</Text>
                 <TextInput
-                    name='cnpj'
+                    name='nome'
                     style={styles.input}
-                    onChangeText={(text) => setPrestador({ ...prestador, cnpj: text })}
-                    value={prestador.cnpj}
+                    onChangeText={(text) => setPrestador({ ...prestador, nome: text })}
+                    value={prestador.nome}
                     keyboardType='default'
-                    placeholder='CNPJ'
-                    maxLength={14}
+                    placeholder='nome'
+                    maxLength={100}
                 />
-                <Text style={styles.label}>Razão Social</Text>
+
+                <Text style={styles.label}>Email:</Text>
                 <TextInput
-                    name='cnpj'
+                    name='email'
                     style={styles.input}
-                    onChangeText={(text) => setPrestador({ ...prestador, razao_social: text })}
-                    value={prestador.razao_social}
+                    onChangeText={(text) => setPrestador({ ...prestador, email: text })}
+                    value={prestador.email}
                     keyboardType='default'
-                    placeholder='Razão Social'
-                    maxLength={100}
+                    placeholder='email'
+                    maxLength={50}
                 />
-                <Text style={styles.label}>Nome Fantasia</Text>
+
+                <Text style={styles.label}>Serviço:</Text>
                 <TextInput
-                    name='cnpj'
+                    name="Serviço prestado"
                     style={styles.input}
-                    onChangeText={(text) => setPrestador({ ...prestador, nome_fantasia: text })}
-                    value={prestador.nome_fantasia}
-                    keyboardType='default'
-                    placeholder='Nome Fantasia'
-                    maxLength={100}
-                />
-                <Text style={styles.label}>CEP</Text>
-                <TextInput
-                    name='cep'
-                    style={styles.input}
-                    onChangeText={(text) => setPrestador({ ...prestador, cep: text })}
-                    value={prestador.cep}
-                    keyboardType='default'
-                    placeholder='99999999'
-                    maxLength={8}
-                    autoComplete='postal-code'
-                />
-                <Text style={styles.label}>Tipo de Logradouro</Text>
-                <TextInput
-                    name="descricao_tipo_de_logradouro"
-                    style={styles.input}
-                    onChangeText={(text) => setPrestador({ ...prestador, descricao_tipo_de_logradouro: text })}
-                    value={prestador.descricao_tipo_de_logradouro}
+                    onChangeText={(text) => setPrestador({ ...prestador, servico: text })}
+                    value={prestador.servico}
                     keyboardType="default"
-                    placeholder='Ex: Rua'
-                    maxLength={100}
+                    placeholder='Ex: Pintor'
+                    maxLength={30}
                 />
-                <Text style={styles.label}>Logradouro</Text>
+
+                <Text style={styles.label}>Celular:</Text>
                 <TextInput
-                    name="logradouro"
+                    name="celular"
                     style={styles.input}
-                    onChangeText={(text) => setPrestador({ ...prestador, logradouro: text })}
-                    value={prestador.logradouro}
+                    onChangeText={(text) => setPrestador({ ...prestador, celular: text })}
+                    value={prestador.celular}
                     keyboardType="default"
-                    placeholder='Logradouro'
-                    maxLength={100}
-                />
-                <Text style={styles.label}>Número do Logradouro</Text>
-                <TextInput
-                    name="numero"
-                    style={styles.input}
-                    onChangeText={(text) => setPrestador({ ...prestador, numero: text })}
-                    value={prestador.numero}
-                    keyboardType="default"
-                    placeholder='Número'
-                    maxLength={20}
-                />
-                <Text style={styles.label}>Munícipio</Text>
-                <TextInput
-                    name="municipio"
-                    style={styles.input}
-                    onChangeText={(text) => setPrestador({ ...prestador, municipio: text })}
-                    value={prestador.municipio}
-                    keyboardType="default"
-                    placeholder='Munícipio'
-                    maxLength={100}
-                />
-                <Text style={styles.label}>Bairro</Text>
-                <TextInput
-                    name="bairro"
-                    style={styles.input}
-                    onChangeText={(text) => setPrestador({ ...prestador, bairro: text })}
-                    value={prestador.bairro}
-                    keyboardType="default"
-                    placeholder='Bairro'
-                    maxLength={20}
-                />
-                <Text style={styles.label}>UF</Text>
-                <TextInput
-                    name="uf"
-                    style={styles.input}
-                    onChangeText={(text) => setPrestador({ ...prestador, uf: text })}
-                    value={prestador.uf}
-                    keyboardType="default"
-                    placeholder='UF'
-                    maxLength={2}
-                />
-                <Text style={styles.label}>Telefone 1</Text>
-                <TextInput
-                    name="ddd_telefone_1"
-                    style={styles.input}
-                    onChangeText={(text) => setPrestador({ ...prestador, ddd_telefone_1: text })}
-                    value={prestador.ddd_telefone_1}
-                    keyboardType="default"
-                    placeholder='Telefone 1'
+                    placeholder='Celular'
                     autoComplete='tel'
                     maxLength={20}
                 />
-                <Text style={styles.label}>Telefone 2</Text>
-                <TextInput
-                    name="ddd_telefone_2"
-                    style={styles.input}
-                    onChangeText={(text) => setPrestador({ ...prestador, ddd_telefone_2: text })}
-                    value={prestador.ddd_telefone_2}
-                    keyboardType="default"
-                    placeholder='Telefone 2'
-                    maxLength={20}
-                />
-                <Text style={styles.label}>Porte</Text>
-                <TextInput
-                    name="porte"
-                    style={styles.input}
-                    onChangeText={(text) => setPrestador({ ...prestador, porte: text })}
-                    value={prestador.porte}
-                    keyboardType="default"
-                    placeholder='Porte da Empresa'
-                    maxLength={100}
-                />
-                <Text style={styles.label}>Natureza Jurídica</Text>
-                <TextInput
-                    name="natureza_juridica"
-                    style={styles.input}
-                    onChangeText={(text) => setPrestador({ ...prestador, natureza_juridica: text })}
-                    value={prestador.natureza_juridica}
-                    keyboardType="default"
-                    placeholder='Natureza Jurídica da Empresa'
-                    maxLength={100}
-                />
-                <Text style={styles.label}>Código CNAE</Text>
-                <TextInput
-                    name="cnae_fiscal"
-                    style={styles.input}
-                    onChangeText={(text) => setPrestador({ ...prestador, cnae_fiscal: text })}
-                    value={prestador.cnae_fiscal}
-                    keyboardType="number-pad"
-                    placeholder='Código do CNAE'
-                    maxLength={7}
-                />
-                <Text style={styles.label}>Descrição CNAE</Text>
-                <TextInput
-                    name="cnae_fiscal_descricao"
-                    style={styles.input}
-                    onChangeText={(text) => setPrestador({ ...prestador, cnae_fiscal_descricao: text })}
-                    value={prestador.cnae_fiscal_descricao}
-                    keyboardType="default"
-                    placeholder='Descrição do CNAE'
-                    maxLength={100}
-                />
-                <Text style={styles.label}>Data Início da Atividade</Text>
-                <TextInput
-                    name="data_inicio_atividade"
-                    style={styles.input}
-                    onChangeText={(text) => setPrestador({ ...prestador, data_inicio_atividade: text })}
-                    value={prestador.data_inicio_atividade}
-                    keyboardType="numbers-and-punctuation"
-                    placeholder='YYYY-MM-DD'
-                    maxLength={10}
-                />
-                <Text style={styles.label}>Situação Cadastral</Text>
-                <TextInput
-                    name="descricao_situacao_cadastral"
-                    style={styles.input}
-                    onChangeText={(text) => setPrestador({ ...prestador, descricao_situacao_cadastral: text })}
-                    value={prestador.descricao_situacao_cadastral}
-                    keyboardType="default"
-                    placeholder='Descrição da Situação Cadastral'
-                    maxLength={100}
-                />
+
                 <Button
                     onPress={() => salvarPrestador(prestador)}
                     title='Salvar o Registro'
                     color={themes.padrao.colors.brand.azul}
                     accessibilityLabel='Salvar os dados'
                 />
-                 <Button
+                <Button
                     onPress={() => navigation.navigate('Prestadores')}
                     title='Cancelar'
                     color={themes.padrao.colors.brand.laranja}
                     accessibilityLabel='Cancelar'
                 />
+                <Button
+                    onPress={() => confirmaExclusaoRegistro(prestador)}
+                    title='Apagar'
+                    color={themes.padrao.colors.brand.laranja}
+                    accessibilityLabel='Apagar'
+                />
+
             </View>
         </>
     )

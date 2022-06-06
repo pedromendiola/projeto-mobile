@@ -3,22 +3,23 @@ import styled from 'styled-components/native'
 import { useNavigation } from '@react-navigation/native'
 import themes from '../../themes'
 
-export default({ data }) => {
+export default ({ data }) => {
     const navigation = useNavigation()
     const navegaDetalhe = () => {
-        navigation.navigate('Prestador',{prestador:data})
+        navigation.navigate('Prestador', { prestador: data })
     }
 
     return (
         <Area onPress={navegaDetalhe}>
-          <Avatar source={{uri: `https://ui-avatars.com/api?background=FFE5AA&color=3B5998&name=${data.razao_social}`}} />
-          <InfoArea>
-              <Empresa>{data.razao_social}</Empresa>
-              <Porte>{data.porte}</Porte>
-              <BotaoDetalhes>
-                  <BotaoDetalhesText>Acesse os detalhes</BotaoDetalhesText>
-              </BotaoDetalhes>
-          </InfoArea>
+            <Avatar source={{ uri: `https://ui-avatars.com/api?background=FFE5AA&color=3B5998&name=${data.nome}` }} />
+            <InfoArea>
+                <UserName>{data.nome}</UserName>
+                <Empresa>{data.servico}</Empresa>
+                <Porte>{data.celular}</Porte>
+                <BotaoDetalhes>
+                    <BotaoDetalhesText>Acesse os detalhes</BotaoDetalhesText>
+                </BotaoDetalhes>
+            </InfoArea>
         </Area>
     )
 }
@@ -39,6 +40,10 @@ const InfoArea = styled.View`
 margin-left: 24px;
 justify-content: space-between;
 `
+const UserName = styled.Text`
+font-size: 17px;
+`
+
 const Empresa = styled.Text`
 font-size: 17px;
 `

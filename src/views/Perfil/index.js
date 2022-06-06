@@ -14,7 +14,7 @@ export default function Perfil(){
     }
     return (
         <>
-        <Header headerTitle="DogWalker" />
+        <Header headerTitle="Cadastro Prestadores" />
         <Container>
             <Button
                 onPress={sair}

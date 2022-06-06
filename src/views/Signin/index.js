@@ -44,7 +44,7 @@ export default () => {
                 Platform.OS === 'web' ? alert(`‼️Erro: ${res.errors[0].msg}`) : Alert.alert("‼️Erro", res.errors[0].msg)
             }
         } else {
-            Platform.OS === 'web' ? alert(`‼️Atenção: Preencha todos os campos`) : Alert.alert("‼️Atenção", 'Preencha todos os campos')
+            Platform.OS === 'web' ? alert(`Atenção!!!: Preencha todos os campos`) : Alert.alert("Atenção!!!", 'Preencha todos os campos')
         }
 
     }
@@ -71,8 +71,6 @@ export default () => {
                     onChangeText={t => setSenhaField(t)}
                     password={true}
                 />
-                <StyledLinkLegenda text="Esqueceu a senha?" />
-
                 <StyledButton
                     onPress={handleSignClick}
                     icon="login"

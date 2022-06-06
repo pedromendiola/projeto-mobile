@@ -30,8 +30,8 @@ export default () => {
         if (nomeField && senhaField && emailField) {
             let res = await Api.signUp(nomeField, emailField, senhaField)
             if (res.acknowledged) { //Retorno do backend se inseriu
-                Platform.OS === 'web' ? alert(`Usuário criado! Efetue o login`) : Alert.alert("✅Aviso",`Usuário cadastrado com sucesso! \nPor favor, efetue o Login`)
-                
+                Platform.OS === 'web' ? alert(`Usuário criado! Efetue o login`) : Alert.alert("✅Aviso", `Usuário cadastrado com sucesso! \nPor favor, efetue o Login`)
+
                 navigation.navigate('SignIn') //Direcionamos para o login
 
             } else {
@@ -46,10 +46,10 @@ export default () => {
     return (
         <Container>
             <Titulo>
-                Bem vindo à bordo!
+                Bem vindo!
             </Titulo>
             <SubTitulo>
-                Você está muito próximo de encontrar um profissional passeador para o seu melhor amigo.
+                Cadastro de Prestadores de Serviço.
             </SubTitulo>
             <InputArea>
                 <IconInput
